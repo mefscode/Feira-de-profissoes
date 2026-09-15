@@ -1,0 +1,532 @@
+    .Agenda {
+
+
+
+        width: 100%;
+        height: 100vh;
+        background-color: #B3B3B3;
+
+        nav {
+            width: 100%;
+            height: 10vh;
+            background-color: #D9D9D9;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        header{
+            height: 10vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header img {
+            width: 200px;
+            height: auto;
+            user-select: none;
+        }
+
+        .botao-agenda,
+        .botao-resumo,
+        .botao-agendamentos {
+            color: #6B6B6B;
+            text-decoration: none;
+            font-size: 20px;
+            user-select: none;
+        }
+
+        main {
+            width: 100%;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .agenda {
+            padding: 10px 100px 40px 100px;
+            background-color: #D9D9D9;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+
+        }
+
+
+        .seletor-mes {
+            width: 100%;
+            margin: 0 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+        }
+
+        .seletor-mes h2 {
+            min-width: 150px;
+            margin: 0;
+            font-size: 26px;
+            text-transform: capitalize;
+        }
+
+        .seletor-mes button {
+            width: 38px;
+            height: 38px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background-color: #23A2D0;
+            color: #FFFFFF;
+            font-size: 30px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .seletor-mes button:hover,
+        .seletor-mes button:focus-visible {
+            background-color: #EEEB35;
+            color: #303030;
+        }
+
+        .seletor-mes button:focus-visible {
+            outline: 3px solid #6B6B6B;
+            outline-offset: 2px;
+        }
+
+        .agenda-status {
+            min-height: 28px;
+            margin: 4px 0;
+            font-size: 18px;
+        }
+
+        .agenda-error {
+            color: #9d1c1c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .agenda-error button {
+            padding: 4px 10px;
+            border: 0;
+            border-radius: 5px;
+            background-color: #23A2D0;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+
+        .dias {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            font-size: 32px;
+            text-align: start;
+            gap: 10px;
+        }
+
+        .coluna {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+
+        .day-ative {
+            width: 100px;
+            height: 60px;
+            background-color: #23A2D0;
+            border: 0;
+            border-radius: 8px;
+            font-size: 20px;
+            text-align: start;
+            padding: 5px 0px 0px 10px;
+            color: #1f1f1f;
+            display: flex;
+            flex-direction: column;
+            font-family: inherit;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .day-inative {
+            width: 100px;
+            height: 60px;
+            background-color: #6B6B6B;
+            border-radius: 8px;
+            font-size: 20px;
+            text-align: start;
+            padding: 5px 0px 0px 10px;
+        }
+
+        .day-number {
+            flex: none;
+            font-size: 18px;
+            line-height: 18px;
+        }
+
+        .day-summary {
+            width: calc(100% - 5px);
+            min-height: 0;
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            align-self: center;
+            overflow-x: hidden;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scrollbar-color: #0b7699 rgba(255, 255, 255, 0.45);
+            scrollbar-width: thin;
+        }
+
+        @supports selector(::-webkit-scrollbar) {
+            .day-summary {
+                scrollbar-color: auto;
+                scrollbar-width: auto;
+            }
+        }
+
+        .day-summary::-webkit-scrollbar {
+            width: 5px;
+            border-radius: 999px;
+        }
+
+        .day-summary::-webkit-scrollbar-button {
+            display: none;
+            width: 0;
+            height: 0;
+            background: transparent;
+        }
+
+        .day-summary::-webkit-scrollbar-track {
+            border-radius: 999px;
+            background-color: rgba(255, 255, 255, 0.45);
+        }
+
+        .day-summary::-webkit-scrollbar-thumb {
+            border-radius: 999px;
+            background-color: #0b7699;
+        }
+
+        .day-event-preview {
+            display: block;
+            flex: 0 0 12px;
+            min-height: 12px;
+            overflow: hidden;
+            font-size: 11px;
+            line-height: 12px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .day-ative:hover {
+            background-color: #EEEB35;
+            color: #303030;
+        }
+
+        .day-ative:focus-visible {
+            outline: 3px solid #EEEB35;
+            outline-offset: 2px;
+        }
+
+        .day-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: grid;
+            place-items: center;
+        }
+
+        .day-overlay-background {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            border: 0;
+            background-color: rgba(0, 0, 0, 0.45);
+            cursor: pointer;
+        }
+
+        .day-expanded {
+            position: relative;
+            z-index: 1;
+            width: min(500px, calc(100vw - 40px));
+            height: min(360px, calc(100vh - 40px));
+            padding: 24px;
+            border-radius: 8px;
+            background-color: #23A2D0;
+            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35);
+            text-align: left;
+            cursor: default;
+        }
+
+        .day-expanded:hover {
+            background-color: #23A2D0;
+            color: inherit;
+        }
+
+        .day-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            border: 0;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.75);
+            color: #303030;
+            font-size: 30px;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .day-close:hover {
+            background-color: #FFFFFF;
+        }
+
+        .day-expanded h2 {
+            margin: 0 50px 18px 0;
+            font-size: 32px;
+        }
+
+        .day-event-list {
+            max-height: calc(100% - 62px);
+            margin: 0;
+            padding: 0 8px 0 0;
+            list-style: none;
+            overflow-y: auto;
+        }
+
+        .day-event-list li {
+            padding: 10px 12px;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.72);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 20px;
+        }
+
+        .day-event-list li + li {
+            margin-top: 8px;
+        }
+
+        .day-event-content {
+            min-width: 0;
+            display: flex;
+            align-items: baseline;
+            flex: 1;
+            gap: 14px;
+        }
+
+        .day-event-content strong {
+            flex: none;
+        }
+
+        .day-event-content span {
+            overflow-wrap: anywhere;
+        }
+
+        .day-event-actions {
+            display: flex;
+            flex: none;
+            gap: 8px;
+        }
+
+        .day-event-edit,
+        .ia-result,
+        .day-event-delete {
+            width: 38px;
+            min-width: 38px;
+            height: 38px;
+            padding: 0;
+            border: 0;
+            border-radius: 5px;
+            color: #FFFFFF;
+            display: grid;
+            place-items: center;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .ia-result{
+            background-color:#777777;
+        }
+
+        .day-event-edit {
+            background-color: #167FA6;
+        }
+
+        .day-event-edit:hover,
+        .day-event-edit:focus-visible {
+            background-color: #0F6687;
+        }
+
+        .day-event-delete {
+            background-color: #B42318;
+        }
+
+        .day-event-delete:hover,
+        .day-event-delete:focus-visible {
+            background-color: #8F1C13;
+        }
+
+        .day-event-edit:focus-visible,
+        .day-event-delete:focus-visible {
+            outline: 3px solid #FFFFFF;
+            outline-offset: 2px;
+        }
+
+        .day-event-edit:disabled,
+        .day-event-delete:disabled {
+            cursor: wait;
+            opacity: 0.65;
+        }
+
+        .day-event-list li.day-event-editing {
+            display: block;
+        }
+
+        .day-event-edit-form {
+            width: 100%;
+            display: grid;
+            gap: 10px;
+            font-size: 15px;
+        }
+
+        .day-event-edit-form label {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-weight: 700;
+        }
+
+        .day-event-edit-form input,
+        .day-event-edit-form select {
+            width: 100%;
+            height: 36px;
+            padding: 0 9px;
+            border: 1px solid #777777;
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #FFFFFF;
+            color: #222222;
+            font: inherit;
+            box-shadow: none;
+        }
+
+        .day-event-edit-form input:focus-visible,
+        .day-event-edit-form select:focus-visible {
+            border-color: #167FA6;
+            outline: none;
+            box-shadow: none;
+        }
+
+        .day-edit-fields {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(70px, 1fr));
+            gap: 10px;
+        }
+
+        .day-edit-error {
+            margin: 0;
+            color: #8A1710;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .day-edit-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .day-edit-actions button {
+            min-width: 86px;
+            height: 36px;
+            padding: 0 12px;
+            border: 0;
+            border-radius: 5px;
+            color: #FFFFFF;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .day-edit-cancel {
+            background-color: #626262;
+        }
+
+        .day-edit-save {
+            background-color: #167FA6;
+            color: #FFFFFF;
+        }
+
+        .day-edit-actions button:hover,
+        .day-edit-actions button:focus-visible {
+            filter: brightness(0.85);
+        }
+
+        .day-edit-actions button:focus-visible {
+            outline: 3px solid #FFFFFF;
+            outline-offset: 2px;
+        }
+
+        .day-edit-actions button:disabled {
+            cursor: wait;
+            opacity: 0.65;
+        }
+
+        .day-delete-error {
+            margin: -8px 0 12px;
+            color: #7A1711;
+            font-size: 16px;
+        }
+
+        .day-empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .day-without-events,
+        .day-schedule-callout {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .day-schedule-callout {
+            font-weight: 700;
+        }
+
+        .day-schedule-link {
+            min-height: 42px;
+            padding: 0 18px;
+            border-radius: 6px;
+            background-color: #C2E5F2;
+            color: #303030;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .day-schedule-link:focus-visible {
+            outline: 3px solid #FFFFFF;
+            outline-offset: 2px;
+        }
+
+
+
+
+    }

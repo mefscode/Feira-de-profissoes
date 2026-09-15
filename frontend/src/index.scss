@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --fonte-destaque: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --fonte-interface: 'Roboto', Arial, sans-serif;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--fonte-interface);
+}
+
+button,
+a,
+img,
+i,
+label,
+.Agendamento .botoes,
+.Agendamento .horario,
+.Agenda .dias,
+.Agenda .day-expanded h2,
+.Notfound .direita h1,
+.Notfound .direita h2 {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input,
+textarea {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+h1,
+h2,
+.Agendamento .botoes > div > p,
+.Agenda .coluna > p {
+  font-family: var(--fonte-destaque);
+  font-weight: 400;
+}
+
+.Agendamento .date-ative,
+.Agendamento .date-inative,
+.Agendamento .horario-data,
+.Agendamento .horario-ajustado,
+.Agendamento .horario-item,
+.Agenda .day-number,
+.Agenda .day-event-content strong {
+  font-variant-numeric: tabular-nums;
+}

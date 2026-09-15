@@ -1,0 +1,211 @@
+.pagina-resumo {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #B3B3B3;
+
+    header {
+        height: 10vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    header img {
+        width: 200px;
+        height: auto;
+        user-select: none;
+    }
+
+    nav {
+        width: 100%;
+        height: 10vh;
+        background-color: #D9D9D9;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .botao-agenda,
+    .botao-resumo,
+    .botao-agendamentos {
+        color: #6B6B6B;
+        font-size: 20px;
+        text-decoration: none;
+        user-select: none;
+    }
+
+    main {
+        min-height: 80vh;
+        padding: 24px;
+        display: grid;
+        place-items: center;
+    }
+
+    .painel-resumo {
+        width: min(680px, 100%);
+        padding: clamp(24px, 5vw, 46px);
+        border-radius: 8px;
+        background-color: #D9D9D9;
+        color: #303030;
+    }
+
+    .resumo-cabecalho {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .resumo-cabecalho > i {
+        width: 56px;
+        height: 56px;
+        flex: none;
+        border-radius: 50%;
+        background-color: #23A2D0;
+        color: #FFFFFF;
+        display: grid;
+        place-items: center;
+        font-size: 26px;
+    }
+
+    .resumo-cabecalho h1 {
+        margin: 0;
+        font-size: clamp(32px, 6vw, 44px);
+    }
+
+    .resumo-cabecalho p {
+        margin: 4px 0 0;
+        color: #5C5C5C;
+        font-size: 17px;
+    }
+
+    .formulario-resumo {
+        margin-top: 32px;
+        display: grid;
+        grid-template-columns: 1fr 1fr auto;
+        align-items: end;
+        gap: 14px;
+    }
+
+    .formulario-resumo label {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        font-size: 17px;
+        font-weight: 700;
+    }
+
+    .formulario-resumo select {
+        width: 100%;
+        height: 42px;
+        padding: 0 10px;
+        border: 0;
+        border-radius: 6px;
+        background-color: #FFFFFF;
+        color: #303030;
+        font: inherit;
+        text-transform: capitalize;
+    }
+
+    .formulario-resumo select:disabled {
+        background-color: #AEAEAE;
+        color: #666666;
+        cursor: not-allowed;
+    }
+
+    .formulario-resumo button {
+        height: 42px;
+        padding: 0 18px;
+        border: 0;
+        border-radius: 6px;
+        background-color: #23A2D0;
+        color: #FFFFFF;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+    }
+
+    .formulario-resumo button:hover:not(:disabled),
+    .formulario-resumo button:focus-visible {
+        background-color: #EEEB35;
+        color: #303030;
+    }
+
+    .formulario-resumo button:focus-visible,
+    .formulario-resumo select:focus-visible {
+        outline: 3px solid #6B6B6B;
+        outline-offset: 2px;
+    }
+
+    .formulario-resumo button:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+
+    .resultado-resumo {
+        min-height: 120px;
+        margin-top: 26px;
+        padding: 20px;
+        border-left: 6px solid #23A2D0;
+        border-radius: 6px;
+        background-color: #EEEEEE;
+    }
+
+    .resultado-resumo h2 {
+        margin: 0 0 8px;
+        font-size: 25px;
+        text-transform: capitalize;
+    }
+
+    .resultado-resumo p {
+        margin: 0;
+        color: #5C5C5C;
+        font-size: 17px;
+        line-height: 1.45;
+    }
+
+    .resumo-total {
+        margin-bottom: 10px !important;
+        color: #167FA6 !important;
+        font-size: 15px !important;
+        font-weight: 700;
+    }
+
+    .resumo-texto {
+        white-space: pre-line;
+    }
+
+    .resultado-resumo.resultado-erro {
+        border-left-color: #B42318;
+        background-color: #FCE8E6;
+    }
+
+    .resultado-resumo.resultado-erro p {
+        color: #8F1C13;
+        font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+        nav {
+            padding: 0 14px;
+            gap: 10px;
+        }
+
+        .botao-agenda,
+        .botao-resumo,
+        .botao-agendamentos {
+            font-size: 16px;
+        }
+
+        main {
+            padding: 18px;
+        }
+
+        .formulario-resumo {
+            grid-template-columns: 1fr;
+        }
+
+        .formulario-resumo button {
+            width: 100%;
+        }
+    }
+}
