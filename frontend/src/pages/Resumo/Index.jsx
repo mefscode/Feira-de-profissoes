@@ -1,15 +1,32 @@
 import './Index.scss';
 import { Link, useSearchParams } from 'react-router-dom';
-import { useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   nomesMeses,
   obterDiasDoMes,
   obterNomeMes,
 } from '../../data/calendario';
-import { gerarResumo } from '../../services/api';
+import {
+  gerarResumo,
+  lerResumoPersistido,
+  salvarResumoPersistido,
+} from '../../services/api';
+
+const DELAY_GERACAO_AUTOMATICA_MS = 4000;
+
+function obterDataAtual() {
+  const agora = new Date();
+
+  return {
+    mes: String(agora.getMonth() + 1),
+    dia: String(agora.getDate()),
+  };
+}
 
 export default function Resumo() {
   const [searchParams] = useSearchParams();
+  const requisicaoAtiva = useRef(null);
+  const temporizadorAutomatico = useRef(null);
   const mesDaUrl = Number(searchParams.get('mes'));
   const diaDaUrl = Number(searchParams.get('dia'));
   const dataDaUrlEhValida =
@@ -19,16 +36,116 @@ export default function Resumo() {
     Number.isInteger(diaDaUrl) &&
     diaDaUrl >= 1 &&
     diaDaUrl <= obterDiasDoMes(mesDaUrl);
-  const [mesSelecionado, setMesSelecionado] = useState(
-    dataDaUrlEhValida ? String(mesDaUrl) : '',
-  );
-  const [diaSelecionado, setDiaSelecionado] = useState(
-    dataDaUrlEhValida ? String(diaDaUrl) : '',
-  );
+  const dataInicial = dataDaUrlEhValida
+    ? { mes: String(mesDaUrl), dia: String(diaDaUrl) }
+    : obterDataAtual();
+  const [mesSelecionado, setMesSelecionado] = useState(dataInicial.mes);
+  const [diaSelecionado, setDiaSelecionado] = useState(dataInicial.dia);
   const [resumo, setResumo] = useState('');
   const [totalAgendamentos, setTotalAgendamentos] = useState(null);
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState('');
+
+  const cancelarResumoEmAndamento = useCallback(() => {
+    if (!requisicaoAtiva.current) {
+      return;
+    }
+
+    requisicaoAtiva.current.abort();
+    requisicaoAtiva.current = null;
+    setCarregando(false);
+  }, []);
+
+  const cancelarGeracaoAutomatica = useCallback(() => {
+    if (temporizadorAutomatico.current === null) {
+      return;
+    }
+
+    window.clearTimeout(temporizadorAutomatico.current);
+    temporizadorAutomatico.current = null;
+  }, []);
+
+  const carregarResumo = useCallback(async ({ mes, dia, silencioso = false }) => {
+    cancelarResumoEmAndamento();
+
+    const controller = new AbortController();
+    requisicaoAtiva.current = controller;
+
+    if (!silencioso) {
+      setCarregando(true);
+      setErro('');
+      setResumo('');
+      setTotalAgendamentos(null);
+    }
+
+    try {
+      const resultado = await gerarResumo({ mes, dia, signal: controller.signal });
+
+      if (requisicaoAtiva.current !== controller) {
+        return;
+      }
+
+      setResumo(resultado.resumo);
+      setTotalAgendamentos(resultado.total_agendamentos);
+      setErro('');
+      salvarResumoPersistido({
+        mes,
+        dia,
+        resumo: resultado.resumo,
+        totalAgendamentos: resultado.total_agendamentos,
+      });
+    } catch (error) {
+      if (error.name === 'AbortError' || requisicaoAtiva.current !== controller) {
+        return;
+      }
+
+      if (!silencioso) {
+        setErro(error.message || 'Não foi possível gerar o resumo.');
+      }
+    } finally {
+      if (requisicaoAtiva.current === controller) {
+        requisicaoAtiva.current = null;
+        setCarregando(false);
+      }
+    }
+  }, [cancelarResumoEmAndamento]);
+
+  useEffect(() => {
+    if (!mesSelecionado || !diaSelecionado) {
+      return undefined;
+    }
+
+    temporizadorAutomatico.current = window.setTimeout(() => {
+      temporizadorAutomatico.current = null;
+      const resumoPersistido = lerResumoPersistido({
+        mes: mesSelecionado,
+        dia: diaSelecionado,
+      });
+
+      if (resumoPersistido) {
+        setResumo(resumoPersistido.resumo);
+        setTotalAgendamentos(resumoPersistido.totalAgendamentos);
+        setErro('');
+      }
+
+      carregarResumo({
+        mes: mesSelecionado,
+        dia: diaSelecionado,
+        silencioso: Boolean(resumoPersistido),
+      });
+    }, DELAY_GERACAO_AUTOMATICA_MS);
+
+    return () => {
+      cancelarGeracaoAutomatica();
+      cancelarResumoEmAndamento();
+    };
+  }, [
+    cancelarGeracaoAutomatica,
+    cancelarResumoEmAndamento,
+    carregarResumo,
+    diaSelecionado,
+    mesSelecionado,
+  ]);
 
   const diasDoMes = useMemo(() => {
     if (!mesSelecionado) {
@@ -42,6 +159,8 @@ export default function Resumo() {
   }, [mesSelecionado]);
 
   function selecionarMes(event) {
+    cancelarGeracaoAutomatica();
+    cancelarResumoEmAndamento();
     setMesSelecionado(event.target.value);
     setDiaSelecionado('');
     setResumo('');
@@ -50,37 +169,23 @@ export default function Resumo() {
   }
 
   function selecionarDia(event) {
+    cancelarGeracaoAutomatica();
+    cancelarResumoEmAndamento();
     setDiaSelecionado(event.target.value);
     setResumo('');
     setTotalAgendamentos(null);
     setErro('');
   }
 
-  async function solicitarResumo(event) {
+  function solicitarResumo(event) {
     event.preventDefault();
 
     if (!mesSelecionado || !diaSelecionado || carregando) {
       return;
     }
 
-    setCarregando(true);
-    setErro('');
-    setResumo('');
-    setTotalAgendamentos(null);
-
-    try {
-      const resultado = await gerarResumo({
-        mes: mesSelecionado,
-        dia: diaSelecionado,
-      });
-
-      setResumo(resultado.resumo);
-      setTotalAgendamentos(resultado.total_agendamentos);
-    } catch (error) {
-      setErro(error.message || 'Não foi possível gerar o resumo.');
-    } finally {
-      setCarregando(false);
-    }
+    cancelarGeracaoAutomatica();
+    carregarResumo({ mes: mesSelecionado, dia: diaSelecionado });
   }
 
   const dataSelecionada =
@@ -175,7 +280,7 @@ export default function Resumo() {
                 </p>
                 <p className="resumo-texto">{resumo}</p>
               </>
-            ) : (
+            ) : mesSelecionado && diaSelecionado ? null : (
               <p>Selecione o mês e o dia para solicitar o resumo à IA.</p>
             )}
           </div>

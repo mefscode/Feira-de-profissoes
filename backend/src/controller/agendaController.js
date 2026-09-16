@@ -10,6 +10,7 @@ import {
     normalizarAgendamento,
     normalizarId
 } from '../agendamentoValidation.js';
+import { refazerResumosEmSegundoPlano } from './resumoController.js';
 
 const endpoints = Router();
 
@@ -34,13 +35,14 @@ endpoints.put('/agendamentos/:id', async (req, res, next) => {
     }
 
     try {
-        const registroAtualizado = await atualizarAgendamento(id, agendamento);
+        const resultadoDaAtualizacao = await atualizarAgendamento(id, agendamento);
 
-        if (!registroAtualizado) {
+        if (!resultadoDaAtualizacao) {
             return res.status(404).json({ erro: 'Agendamento não encontrado.' });
         }
 
-        return res.status(200).json(registroAtualizado);
+        refazerResumosEmSegundoPlano(resultadoDaAtualizacao.datasAfetadas);
+        return res.status(200).json(resultadoDaAtualizacao.registro);
     } catch (error) {
         if (error instanceof ConflitoDeHorarioError) {
             return res.status(409).json({ erro: error.message });
@@ -62,12 +64,13 @@ endpoints.delete('/agendamentos/:id', async (req, res, next) => {
     }
 
     try {
-        const removido = await removerAgendamento(id);
+        const registroRemovido = await removerAgendamento(id);
 
-        if (!removido) {
+        if (!registroRemovido) {
             return res.status(404).json({ erro: 'Agendamento não encontrado.' });
         }
 
+        refazerResumosEmSegundoPlano([registroRemovido]);
         return res.status(204).send();
     } catch (error) {
         if (error instanceof BloqueioDeAgendaError) {

@@ -163,7 +163,7 @@ export async function criarAgendamento(agendamento) {
 export async function atualizarAgendamento(id, agendamento) {
     return executarEscrita(async (connection) => {
         const [existentes] = await connection.execute(
-            'SELECT id FROM agendamentos WHERE id = ? FOR UPDATE',
+            'SELECT id, mes, dia FROM agendamentos WHERE id = ? FOR UPDATE',
             [id]
         );
 
@@ -191,17 +191,32 @@ export async function atualizarAgendamento(id, agendamento) {
             ]
         );
 
-        return { id, ...agendamento };
+        return {
+            registro: { id, ...agendamento },
+            datasAfetadas: [
+                { mes: existentes[0].mes, dia: existentes[0].dia },
+                { mes: Number(agendamento.mes), dia: Number(agendamento.dia) }
+            ]
+        };
     });
 }
 
 export async function removerAgendamento(id) {
     return executarEscrita(async (connection) => {
-        const [resultado] = await connection.execute(
-            'DELETE FROM agendamentos WHERE id = ?',
+        const [existentes] = await connection.execute(
+            'SELECT mes, dia FROM agendamentos WHERE id = ? FOR UPDATE',
             [id]
         );
 
-        return resultado.affectedRows > 0;
+        if (existentes.length === 0) {
+            return null;
+        }
+
+        await connection.execute('DELETE FROM agendamentos WHERE id = ?', [id]);
+
+        return {
+            mes: existentes[0].mes,
+            dia: existentes[0].dia
+        };
     });
 }

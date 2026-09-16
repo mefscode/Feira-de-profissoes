@@ -5,6 +5,7 @@ import {
     criarAgendamento
 } from '../agendamentos.js';
 import { normalizarAgendamento } from '../agendamentoValidation.js';
+import { refazerResumosEmSegundoPlano } from './resumoController.js';
 
 const endpoints = Router();
 
@@ -19,6 +20,7 @@ endpoints.post('/agendamentos', async (req, res, next) => {
 
     try {
         const registroCriado = await criarAgendamento(agendamento);
+        refazerResumosEmSegundoPlano([registroCriado]);
 
         return res.status(201).json(registroCriado);
     } catch (error) {

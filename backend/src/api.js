@@ -5,7 +5,7 @@ import conexao from '../database/db.js';
 
 const api = express();
 api.use(cors());
-api.use(express.json());
+api.use(express.json({ limit: '8kb' }));
 addRoutes(api);
 
 api.use((error, req, res, next) => {
@@ -15,6 +15,10 @@ api.use((error, req, res, next) => {
 
     if (error instanceof SyntaxError && error.status === 400 && 'body' in error) {
         return res.status(400).json({ erro: 'O corpo da requisição contém JSON inválido.' });
+    }
+
+    if (error.type === 'entity.too.large') {
+        return res.status(413).json({ erro: 'O corpo da requisição é grande demais.' });
     }
 
     console.error('Erro interno da API:', error);
