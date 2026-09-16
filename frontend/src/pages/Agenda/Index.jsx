@@ -587,14 +587,17 @@ export default function Agenda() {
                               </div>
 
                               <div className="day-event-actions">
-                                <button className='ia-result'
-                                type='button'
-                                title='Resumo'
-                                aria-label={`resumo do agendamento das ${horarioTexto}: ${agendamento.titulo}`}
-
-                                
-                                ><i class="fa-solid fa-robot">
-                                  </i></button>
+                                <Link
+                                  className="ia-result"
+                                  to={`/resumo?mes=${mesSelecionado}&dia=${selectedDay}`}
+                                  title="Resumo"
+                                  aria-label={`Ver resumo do dia ${selectedDay} de ${nomeMesSelecionado}`}
+                                >
+                                  <i
+                                    className="fa-solid fa-robot"
+                                    aria-hidden="true"
+                                  />
+                                </Link>
                                 <button
                                   className="day-event-edit"
                                   type="button"

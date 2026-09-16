@@ -1,5 +1,5 @@
 import './Index.scss';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useMemo, useState } from 'react';
 import {
   nomesMeses,
@@ -9,8 +9,22 @@ import {
 import { gerarResumo } from '../../services/api';
 
 export default function Resumo() {
-  const [mesSelecionado, setMesSelecionado] = useState('');
-  const [diaSelecionado, setDiaSelecionado] = useState('');
+  const [searchParams] = useSearchParams();
+  const mesDaUrl = Number(searchParams.get('mes'));
+  const diaDaUrl = Number(searchParams.get('dia'));
+  const dataDaUrlEhValida =
+    Number.isInteger(mesDaUrl) &&
+    mesDaUrl >= 1 &&
+    mesDaUrl <= 12 &&
+    Number.isInteger(diaDaUrl) &&
+    diaDaUrl >= 1 &&
+    diaDaUrl <= obterDiasDoMes(mesDaUrl);
+  const [mesSelecionado, setMesSelecionado] = useState(
+    dataDaUrlEhValida ? String(mesDaUrl) : '',
+  );
+  const [diaSelecionado, setDiaSelecionado] = useState(
+    dataDaUrlEhValida ? String(diaDaUrl) : '',
+  );
   const [resumo, setResumo] = useState('');
   const [totalAgendamentos, setTotalAgendamentos] = useState(null);
   const [carregando, setCarregando] = useState(false);
