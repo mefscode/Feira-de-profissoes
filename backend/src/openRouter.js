@@ -1,7 +1,7 @@
 import { frasesExemploResumo } from './exemplosResumo.js';
 
 const URL_OPENROUTER = 'https://openrouter.ai/api/v1/chat/completions';
-const modeloPadrao = 'openai/gpt-4.1-mini';
+const modeloPadrao = 'nvidia/nemotron-3-ultra-550b-a55b:free';
 
 export class ConfiguracaoOpenRouterError extends Error {
     constructor() {
