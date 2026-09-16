@@ -1,3 +1,5 @@
+import { frasesExemploResumo } from './exemplosResumo.js';
+
 const URL_OPENROUTER = 'https://openrouter.ai/api/v1/chat/completions';
 const modeloPadrao = 'openai/gpt-4.1-mini';
 
@@ -24,6 +26,12 @@ function montarContexto(agendamentos) {
     return agendamentos.map((agendamento) => (
         `- ${agendamento.horario_inicio} até ${agendamento.horario_fim}: ${agendamento.titulo}`
     )).join('\n');
+}
+
+function montarExemplosDeEstilo() {
+    return frasesExemploResumo
+        .map((frase, indice) => `${indice + 1}. ${frase}`)
+        .join('\n');
 }
 
 export async function gerarResumoDoDia({ mes, dia, nomeMes, agendamentos }) {
@@ -53,7 +61,7 @@ export async function gerarResumoDoDia({ mes, dia, nomeMes, agendamentos }) {
                 messages: [
                     {
                         role: 'system',
-                        content: 'Você transforma agendas em um único texto corrido, natural e cronológico, em português do Brasil. Use apenas as informações fornecidas e não invente horários ou atividades. Não use Markdown, títulos, tabelas, listas, asteriscos ou quebras de linha. Conecte os compromissos com expressões como "às", "depois" e "por fim". Exemplo de estilo: "Às 17h, você levará o carro à oficina; às 20h, irá testá-lo e, por fim, às 23h, sairá para a festa.". Quando não houver agendamentos, responda apenas que não há agendamentos para a data.'
+                        content: `Você transforma agendas em um único texto corrido, natural e cronológico, em português do Brasil. Use apenas as informações fornecidas e não invente horários ou atividades. Não use Markdown, títulos, tabelas, listas, asteriscos ou quebras de linha. Conecte os compromissos com expressões como "às", "depois" e "por fim". Use as frases abaixo somente como referência de estilo; não copie suas informações para o resumo.\n\nExemplos de estilo:\n${montarExemplosDeEstilo()}\n\nQuando não houver agendamentos, responda apenas que não há agendamentos para a data.`
                     },
                     {
                         role: 'user',
