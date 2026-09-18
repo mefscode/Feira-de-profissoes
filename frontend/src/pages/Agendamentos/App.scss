@@ -1,16 +1,17 @@
 .Agendamento {
     width: 100%;
-    min-height: 100dvh;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
     background-color: var(--cor-fundo);
     display: grid;
-    grid-template-rows: var(--altura-cabecalho) var(--altura-navegacao) auto;
-    overflow: visible;
+    grid-template-rows: var(--altura-cabecalho) var(--altura-navegacao) minmax(0, 1fr);
+    overflow: hidden;
 
     main {
-        min-height: calc(100dvh - var(--altura-cabecalho) - var(--altura-navegacao));
+        min-height: 0;
         padding: 10px;
-        height: auto;
-        overflow: visible;
+        overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -18,24 +19,26 @@
 
     .calendario {
         width: min(92%, 1280px);
-        height: auto;
-        min-height: min(680px, calc(100dvh - var(--altura-cabecalho) - var(--altura-navegacao) - 20px));
-        max-height: none;
+        height: 100%;
+        min-height: 0;
+        max-height: 100%;
         background-color: var(--cor-superficie);
         display: flex;
         gap: 20px;
         padding: 12px;
+        overflow: hidden;
     }
 
     .dias {
         flex: 1;
         min-width: 0;
+        min-height: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
-        gap: clamp(10px, 1.8vh, 18px);
-        padding: clamp(8px, 1.5vh, 12px) 0;
+        gap: clamp(6px, 1vh, 10px);
+        padding: clamp(6px, 0.8vh, 8px) 0;
 
     }
 
@@ -44,27 +47,27 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 18px;
+        gap: clamp(10px, 1.5vw, 18px);
     }
 
     .seletor-mes h2 {
-        min-width: 150px;
+        min-width: clamp(120px, 16vw, 150px);
         margin: 0;
         color: var(--cor-texto);
-        font-size: clamp(22px, 3vw, 30px);
+        font-size: clamp(20px, 3vh, 30px);
         text-align: center;
         text-transform: capitalize;
     }
 
     .seletor-mes button {
-        width: 44px;
-        height: 44px;
+        width: clamp(36px, 5vh, 44px);
+        height: clamp(36px, 5vh, 44px);
         padding: 0;
         border: 0;
         border-radius: 50%;
         background-color: var(--cor-primaria);
         color: var(--cor-branca);
-        font-size: 30px;
+        font-size: clamp(24px, 3.6vh, 30px);
         line-height: 1;
         cursor: pointer;
     }
@@ -89,14 +92,14 @@
         width: 100%;
         display: grid;
         grid-template-columns: repeat(7, minmax(0, 1fr));
-        gap: clamp(3px, 0.8vw, 12px);
+        gap: clamp(3px, 0.6vw, 8px);
         align-items: center;
     }
 
     .orientacao-agendamento {
         width: 100%;
-        min-height: 68px;
-        padding: 12px 16px;
+        min-height: clamp(48px, 8vh, 68px);
+        padding: clamp(8px, 1.2vh, 12px) clamp(10px, 1.6vw, 16px);
         border-bottom: 5px solid var(--cor-primaria);
         border-radius: var(--raio-md);
         background-color: var(--cor-superficie-clara);
@@ -138,17 +141,17 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: clamp(3px, 0.65vh, 5px);
     }
 
     .formulario form label {
-        font-size: 20px;
+        font-size: clamp(16px, 2.3vh, 20px);
         user-select: none;
     }
 
     .formulario form input {
         width: 100%;
-        min-height: 44px;
+        min-height: clamp(38px, 5.5vh, 44px);
         background-color: var(--cor-branca);
         color: var(--cor-texto);
         border-radius: var(--raio-md);
@@ -161,7 +164,8 @@
 
     .formulario form button {
         width: 100%;
-        min-height: 44px;
+        margin-top: clamp(4px, 0.8vh, 6px);
+        min-height: clamp(38px, 5.5vh, 44px);
         border-radius: var(--raio-md);
         background-color: var(--cor-primaria);
         color: var(--cor-branca);
@@ -248,7 +252,7 @@
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        inline-size: clamp(44px, min(4.6vw, 7vh), 64px);
+        inline-size: clamp(36px, min(4.6vw, 5.5vh), 64px);
         max-inline-size: 100%;
         block-size: auto;
         aspect-ratio: 1;
@@ -265,12 +269,12 @@
         flex-direction: column;
         min-width: 0;
         align-items: center;
-        gap: clamp(8px, 1.5vh, 15px);
+        gap: clamp(4px, 0.8vh, 8px);
         user-select: none;
     }
 
     .botoes>div>p {
-        font-size: clamp(15px, 2.4vw, 32px);
+        font-size: clamp(15px, 2.8vh, 28px);
         white-space: nowrap;
     }
 
@@ -329,7 +333,7 @@
 
     .horario {
         width: clamp(270px, 24vw, 320px);
-        height: auto;
+        height: 100%;
         min-height: 0;
         padding: 20px 5px 5px 22px;
         border-radius: 5px;
@@ -472,12 +476,14 @@
     }
 
     .horario-lista {
+        min-height: 0;
         padding: 0 7px 4px 0;
         display: flex;
         flex: 1;
         flex-direction: column;
         gap: 7px;
         overflow-y: scroll;
+        overscroll-behavior: contain;
         scrollbar-color: var(--cor-primaria-clara) var(--cor-superficie);
         scrollbar-gutter: stable;
         scrollbar-width: thin;
@@ -589,13 +595,17 @@
 @media (max-width: 950px) {
     .Agendamento main {
         padding: 12px;
+        overflow-y: auto;
         align-items: flex-start;
     }
 
     .Agendamento .calendario {
         width: min(94%, 720px);
+        height: auto;
         min-height: 0;
+        max-height: none;
         flex-direction: column;
+        overflow: visible;
     }
 
     .Agendamento .dias,

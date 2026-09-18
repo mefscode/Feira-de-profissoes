@@ -20,6 +20,7 @@
 }
 
 .app-nav {
+    position: relative;
     min-height: var(--altura-navegacao);
     padding-inline: clamp(8px, 3vw, 32px);
     background-color: var(--cor-superficie);
@@ -49,8 +50,20 @@
 
 .app-nav-link-active {
     color: var(--cor-primaria-hover);
-    border-bottom-color: var(--cor-primaria-hover);
+    border-bottom-color: transparent;
     font-weight: 700;
+}
+
+.app-nav-indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    border-radius: 999px 999px 0 0;
+    background-color: var(--cor-primaria-hover);
+    pointer-events: none;
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1), width 280ms cubic-bezier(0.22, 1, 0.36, 1), opacity 160ms ease;
+    will-change: transform, width;
 }
 
 @media (max-width: 420px) {
