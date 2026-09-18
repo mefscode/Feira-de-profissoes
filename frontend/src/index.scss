@@ -1,9 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
 :root {
   --fonte-destaque: 'Instrument Serif', Georgia, 'Times New Roman', serif;
   --fonte-interface: 'Roboto', Arial, sans-serif;
+  --cor-fundo: #B3B3B3;
+  --cor-superficie: #D9D9D9;
+  --cor-superficie-clara: #EEEEEE;
+  --cor-texto: #303030;
+  --cor-texto-suave: #525252;
+  --cor-primaria: #167FA6;
+  --cor-primaria-hover: #0F6687;
+  --cor-primaria-clara: #BFE2F1;
+  --cor-destaque: #EEEB35;
+  --cor-perigo: #B42318;
+  --cor-perigo-hover: #8F1C13;
+  --cor-painel-escuro: #595959;
+  --cor-painel: #6B6B6B;
+  --cor-neutra: #777777;
+  --cor-neutra-hover: #626262;
+  --cor-borda-suave: #929292;
+  --cor-borda-desabilitada: #8A8A8A;
+  --cor-desabilitado-fundo: #A8A8A8;
+  --cor-desabilitado-texto: #555555;
+  --cor-sucesso: #176B35;
+  --cor-ocupado: #FFB4AB;
+  --cor-erro-fundo: #FCE8E6;
+  --cor-branca: #FFFFFF;
+  --cor-branca-20: rgba(255, 255, 255, 0.2);
+  --cor-branca-45: rgba(255, 255, 255, 0.45);
+  --cor-branca-70: rgba(255, 255, 255, 0.7);
+  --cor-branca-75: rgba(255, 255, 255, 0.75);
+  --cor-sobreposicao: rgba(0, 0, 0, 0.45);
+  --raio-sm: 6px;
+  --raio-md: 8px;
+  --raio-lg: 12px;
+  --sombra-dialogo: 0 16px 45px rgba(0, 0, 0, 0.35);
+  --altura-cabecalho: clamp(64px, 9dvh, 88px);
+  --altura-navegacao: clamp(48px, 7dvh, 64px);
 }
 
 * {
@@ -21,10 +52,8 @@ textarea {
 }
 
 button,
-a,
 img,
 i,
-label,
 .Agendamento .botoes,
 .Agendamento .horario,
 .Agenda .dias,
@@ -64,17 +93,42 @@ html,
 body,
 #root {
   width: 100%;
-  height: 100%;
   min-height: 100%;
-  overflow: hidden;
 }
 
 body {
-  overflow: hidden;
+  min-width: 320px;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto);
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 img {
   display: block;
   max-width: 100%;
   object-fit: contain;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  transition: background-color 160ms ease, border-color 160ms ease,
+    color 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+}
+
+:focus-visible {
+  outline: 3px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

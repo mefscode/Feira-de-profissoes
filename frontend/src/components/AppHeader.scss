@@ -1,0 +1,66 @@
+.app-header {
+    min-height: var(--altura-cabecalho);
+    background-color: var(--cor-fundo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.app-logo {
+    min-width: 44px;
+    min-height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: var(--raio-sm);
+}
+
+.app-logo img {
+    width: clamp(130px, 18vw, 200px);
+    max-height: calc(var(--altura-cabecalho) - 12px);
+}
+
+.app-nav {
+    min-height: var(--altura-navegacao);
+    padding-inline: clamp(8px, 3vw, 32px);
+    background-color: var(--cor-superficie);
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: clamp(4px, 4vw, 64px);
+}
+
+.app-nav-link {
+    min-height: 44px;
+    padding: 0 clamp(4px, 1.5vw, 18px);
+    border-bottom: 3px solid transparent;
+    color: var(--cor-texto);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(13px, 2vw, 18px);
+    text-align: center;
+    text-decoration: none;
+}
+
+.app-nav-link:hover {
+    color: var(--cor-primaria-hover);
+    border-bottom-color: var(--cor-primaria-clara);
+}
+
+.app-nav-link-active {
+    color: var(--cor-primaria-hover);
+    border-bottom-color: var(--cor-primaria-hover);
+    font-weight: 700;
+}
+
+@media (max-width: 420px) {
+    .app-nav {
+        gap: 2px;
+        padding-inline: 4px;
+    }
+
+    .app-nav-link {
+        flex: 1;
+        padding-inline: 2px;
+    }
+}

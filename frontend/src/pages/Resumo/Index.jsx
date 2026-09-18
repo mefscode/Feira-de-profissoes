@@ -1,6 +1,7 @@
 import './Index.scss';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import AppHeader from '../../components/AppHeader';
 import {
   nomesMeses,
   obterDiasDoMes,
@@ -195,21 +196,7 @@ export default function Resumo() {
 
   return (
     <div className="pagina-resumo">
-      <header>
-        <img src="/assets/images/Agenda-FREI.png" alt="Logo Agenda do FREI" />
-      </header>
-
-      <nav>
-        <Link className="botao-agenda" to="/agenda">
-          Ver agenda
-        </Link>
-        <Link className="botao-resumo" to="/resumo">
-          Resumo IA
-        </Link>
-        <Link className="botao-agendamentos" to="/">
-          Ver agendamento
-        </Link>
-      </nav>
+      <AppHeader />
 
       <main>
         <section className="painel-resumo" aria-labelledby="titulo-resumo">

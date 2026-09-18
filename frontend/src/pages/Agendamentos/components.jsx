@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { obterColunasCalendario, obterNomeMes } from '../../data/calendario';
 
 const botoesDiminuirMinutos = [-1, -10, -30];
@@ -31,27 +30,6 @@ export function Notificacao({ notificacao, onClose }) {
         &times;
       </button>
     </div>
-  );
-}
-
-export function BarraNavegacao() {
-  return (
-<div className="BarraNavegacao">
-      <header>
-        <img src="/assets/images/Agenda-FREI.png" alt="Logo Agenda do FREI" />
-      </header>
-      <nav>
-        <Link className="botao-agenda" to="/agenda">
-          Ver agenda
-        </Link>
-        <Link className='botao-resumo' to='/resumo'>Resumo IA</Link>
-        <Link className="botao-agendamentos" to="/">
-          Ver agendamento
-        </Link>
-      </nav>
-</div>
-
-
   );
 }
 
@@ -397,14 +375,6 @@ export function PainelHorarios({
           : 'Dia:'}
       </p>
 
-      <AjusteMinutos
-        horarioSelecionado={horarioSelecionado}
-        horarioSelecionadoOcupado={horarioSelecionadoOcupado}
-        enviando={enviando}
-        carregandoAgenda={carregandoAgenda}
-        onAlterarMinutos={onAlterarMinutos}
-      />
-
       <EventoHorarios
         inicio={eventoInicio}
         fim={eventoFim}
@@ -415,6 +385,16 @@ export function PainelHorarios({
         onInicio={onEventoInicio}
         onFim={onEventoFim}
         onSelecionarEvento={onSelecionarEvento}
+      />
+
+      <p className="separador-opcoes">ou</p>
+
+      <AjusteMinutos
+        horarioSelecionado={horarioSelecionado}
+        horarioSelecionadoOcupado={horarioSelecionadoOcupado}
+        enviando={enviando}
+        carregandoAgenda={carregandoAgenda}
+        onAlterarMinutos={onAlterarMinutos}
       />
 
       <ListaHorarios

@@ -5,7 +5,10 @@ export default function Notfound() {
     return (
         <div className="Notfound">
             <main>
-                <img src='/assets/images/Agenda-Imagem.png' alt='Ícone de agenda' />
+                <img
+                    src={`${import.meta.env.BASE_URL}assets/images/Agenda-Imagem.png`}
+                    alt='Ícone de agenda'
+                />
                 <div className='direita'>
                     <h1>404</h1>
                     <h2>Página não encontrada</h2>

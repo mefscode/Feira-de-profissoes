@@ -18,7 +18,7 @@ O projeto é composto por um frontend em React, uma API REST em Express e um ban
 
 | Camada | Tecnologias |
 | --- | --- |
-| Frontend | React 19, React Router, Sass e Create React App |
+| Frontend | React 19, Vite, React Router e Sass |
 | Backend | Node.js, Express 5, CORS, dotenv e mysql2 |
 | Banco de dados | MySQL |
 | Resumos por IA (opcional) | OpenRouter |
@@ -116,15 +116,15 @@ Em outro terminal, a partir da raiz do projeto:
 ```bash
 cd frontend
 npm ci
-npm start
+npm run dev
 ```
 
-Abra `http://localhost:3000` no navegador. Por padrão, o frontend procura a API em `http://localhost:8000`.
+Abra `http://localhost:5173` no navegador. O comando `npm start` também é aceito como atalho para o servidor Vite. Por padrão, o frontend procura a API em `http://localhost:8000`.
 
-Caso a API esteja em outro endereço, crie `frontend/.env` antes de iniciar o React:
+Caso a API esteja em outro endereço, copie `frontend/.env.example` para `frontend/.env` e altere a variável antes de iniciar o Vite:
 
 ```dotenv
-REACT_APP_API_URL=http://localhost:8000
+VITE_API_URL=http://localhost:8000
 ```
 
 Reinicie `npm start` depois de alterar esse arquivo.
