@@ -1,6 +1,7 @@
 import './Index.scss';
 import { Link } from 'react-router-dom';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import AppHeader from '../../components/AppHeader';
 import {
   nomesMeses,
   obterColunasCalendario,
@@ -300,21 +301,7 @@ export default function Agenda() {
 
   return (
     <div className="Agenda">
-      <header>
-        <img
-          src={`${import.meta.env.BASE_URL}assets/images/Agenda-FREI.png`}
-          alt="Logo Agenda do FREI"
-        />
-      </header>
-      <nav>
-        <Link className="botao-agenda" to="/agenda">
-          Ver agenda
-        </Link>
-        <Link className='botao-resumo' to='/resumo'>Resumo IA</Link>
-        <Link className="botao-agendamentos" to="/">
-          Ver agendamento
-        </Link>
-      </nav>
+      <AppHeader />
 
       <main>
         <div className="agenda">
@@ -430,7 +417,20 @@ export default function Agenda() {
                   &times;
                 </button>
 
-                <h2 id="selected-day-title">Dia {selectedDay} de {nomeMesSelecionado}</h2>
+                <div className="day-expanded-title">
+                  <h2 id="selected-day-title">
+                    Dia {selectedDay} de {nomeMesSelecionado}
+                  </h2>
+                  <Link
+                    className="ia-result day-summary-link"
+                    to={`/resumo?mes=${mesSelecionado}&dia=${selectedDay}`}
+                    title="Gerar resumo do dia com IA"
+                    aria-label={`Gerar resumo do dia ${selectedDay} de ${nomeMesSelecionado} com IA`}
+                  >
+                    <i className="fa-solid fa-robot" aria-hidden="true" />
+                    <span>Resumo do dia</span>
+                  </Link>
+                </div>
 
                 {erroRemocao && (
                   <p className="day-delete-error" role="alert">
@@ -590,17 +590,6 @@ export default function Agenda() {
                               </div>
 
                               <div className="day-event-actions">
-                                <Link
-                                  className="ia-result"
-                                  to={`/resumo?mes=${mesSelecionado}&dia=${selectedDay}`}
-                                  title="Resumo"
-                                  aria-label={`Ver resumo do dia ${selectedDay} de ${nomeMesSelecionado}`}
-                                >
-                                  <i
-                                    className="fa-solid fa-robot"
-                                    aria-hidden="true"
-                                  />
-                                </Link>
                                 <button
                                   className="day-event-edit"
                                   type="button"

@@ -1,41 +1,7 @@
     .Agenda {
-
-
-
         width: 100%;
-        height: 100vh;
-        background-color: #B3B3B3;
-
-        nav {
-            width: 100%;
-            height: 10vh;
-            background-color: #D9D9D9;
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-        }
-
-        header{
-            height: 10vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        header img {
-            width: 200px;
-            height: auto;
-            user-select: none;
-        }
-
-        .botao-agenda,
-        .botao-resumo,
-        .botao-agendamentos {
-            color: #6B6B6B;
-            text-decoration: none;
-            font-size: 20px;
-            user-select: none;
-        }
+        min-height: 100dvh;
+        background-color: var(--cor-fundo);
 
         main {
             width: 100%;
@@ -47,7 +13,7 @@
 
         .agenda {
             padding: 10px 100px 40px 100px;
-            background-color: #D9D9D9;
+            background-color: var(--cor-superficie);
             display: flex;
             flex-direction: column;
             text-align: center;
@@ -72,13 +38,13 @@
         }
 
         .seletor-mes button {
-            width: 38px;
-            height: 38px;
+            width: 44px;
+            height: 44px;
             padding: 0;
             border: 0;
             border-radius: 50%;
-            background-color: #23A2D0;
-            color: #FFFFFF;
+            background-color: var(--cor-primaria);
+            color: var(--cor-branca);
             font-size: 30px;
             line-height: 1;
             cursor: pointer;
@@ -86,12 +52,12 @@
 
         .seletor-mes button:hover,
         .seletor-mes button:focus-visible {
-            background-color: #EEEB35;
-            color: #303030;
+            background-color: var(--cor-destaque);
+            color: var(--cor-texto);
         }
 
         .seletor-mes button:focus-visible {
-            outline: 3px solid #6B6B6B;
+            outline: 3px solid var(--cor-primaria-hover);
             outline-offset: 2px;
         }
 
@@ -102,7 +68,7 @@
         }
 
         .agenda-error {
-            color: #9d1c1c;
+            color: var(--cor-perigo-hover);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -113,8 +79,8 @@
             padding: 4px 10px;
             border: 0;
             border-radius: 5px;
-            background-color: #23A2D0;
-            color: #FFFFFF;
+            background-color: var(--cor-primaria);
+            color: var(--cor-branca);
             cursor: pointer;
         }
 
@@ -139,13 +105,13 @@
         .day-ative {
             width: 100px;
             height: 60px;
-            background-color: #23A2D0;
+            background-color: var(--cor-primaria);
             border: 0;
-            border-radius: 8px;
+            border-radius: var(--raio-md);
             font-size: 20px;
             text-align: start;
             padding: 5px 0px 0px 10px;
-            color: #1f1f1f;
+            color: var(--cor-branca);
             display: flex;
             flex-direction: column;
             font-family: inherit;
@@ -156,8 +122,9 @@
         .day-inative {
             width: 100px;
             height: 60px;
-            background-color: #6B6B6B;
-            border-radius: 8px;
+            background-color: var(--cor-painel);
+            color: var(--cor-branca);
+            border-radius: var(--raio-md);
             font-size: 20px;
             text-align: start;
             padding: 5px 0px 0px 10px;
@@ -179,7 +146,7 @@
             overflow-x: hidden;
             overflow-y: auto;
             overscroll-behavior: contain;
-            scrollbar-color: #0b7699 rgba(255, 255, 255, 0.45);
+            scrollbar-color: var(--cor-primaria-hover) var(--cor-branca-45);
             scrollbar-width: thin;
         }
 
@@ -204,12 +171,12 @@
 
         .day-summary::-webkit-scrollbar-track {
             border-radius: 999px;
-            background-color: rgba(255, 255, 255, 0.45);
+            background-color: var(--cor-branca-45);
         }
 
         .day-summary::-webkit-scrollbar-thumb {
             border-radius: 999px;
-            background-color: #0b7699;
+            background-color: var(--cor-primaria-hover);
         }
 
         .day-event-preview {
@@ -224,12 +191,12 @@
         }
 
         .day-ative:hover {
-            background-color: #EEEB35;
-            color: #303030;
+            background-color: var(--cor-destaque);
+            color: var(--cor-texto);
         }
 
         .day-ative:focus-visible {
-            outline: 3px solid #EEEB35;
+            outline: 3px solid var(--cor-primaria-hover);
             outline-offset: 2px;
         }
 
@@ -248,7 +215,7 @@
             height: 100%;
             padding: 0;
             border: 0;
-            background-color: rgba(0, 0, 0, 0.45);
+            background-color: var(--cor-sobreposicao);
             cursor: pointer;
         }
 
@@ -258,15 +225,19 @@
             width: min(500px, calc(100vw - 40px));
             height: min(360px, calc(100vh - 40px));
             padding: 24px;
-            border-radius: 8px;
-            background-color: #23A2D0;
-            box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35);
+            box-sizing: border-box;
+            border-radius: var(--raio-md);
+            background-color: var(--cor-primaria);
+            box-shadow: var(--sombra-dialogo);
+            color: var(--cor-branca);
+            display: flex;
+            flex-direction: column;
             text-align: left;
             cursor: default;
         }
 
         .day-expanded:hover {
-            background-color: #23A2D0;
+            background-color: var(--cor-primaria);
             color: inherit;
         }
 
@@ -274,39 +245,49 @@
             position: absolute;
             top: 12px;
             right: 12px;
-            width: 40px;
-            height: 40px;
+            width: 44px;
+            height: 44px;
             padding: 0;
             border: 0;
             border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.75);
-            color: #303030;
+            background-color: var(--cor-branca-75);
+            color: var(--cor-texto);
             font-size: 30px;
             line-height: 1;
             cursor: pointer;
         }
 
         .day-close:hover {
-            background-color: #FFFFFF;
+            background-color: var(--cor-branca);
+        }
+
+        .day-expanded-title {
+            margin: 0 50px 18px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .day-expanded h2 {
-            margin: 0 50px 18px 0;
+            margin: 0;
+            flex: 1;
             font-size: 32px;
         }
 
         .day-event-list {
-            max-height: calc(100% - 62px);
+            min-height: 0;
             margin: 0;
             padding: 0 8px 0 0;
+            flex: 1;
             list-style: none;
             overflow-y: auto;
         }
 
         .day-event-list li {
             padding: 10px 12px;
-            border-radius: 6px;
-            background-color: rgba(255, 255, 255, 0.72);
+            border-radius: var(--raio-sm);
+            background-color: var(--cor-branca-70);
+            color: var(--cor-texto);
             display: flex;
             align-items: center;
             gap: 14px;
@@ -342,13 +323,13 @@
         .day-event-edit,
         .ia-result,
         .day-event-delete {
-            width: 38px;
-            min-width: 38px;
-            height: 38px;
+            width: 44px;
+            min-width: 44px;
+            height: 44px;
             padding: 0;
             border: 0;
             border-radius: 5px;
-            color: #FFFFFF;
+            color: var(--cor-branca);
             display: grid;
             place-items: center;
             font-size: 18px;
@@ -357,40 +338,56 @@
         }
 
         .ia-result{
-            background-color:#777777;
+            background-color:var(--cor-neutra);
         }
 
         .ia-result:hover,
         .ia-result:focus-visible {
-            background-color: #5C5C5C;
+            background-color: var(--cor-texto-suave);
         }
 
         .ia-result:focus-visible {
-            outline: 3px solid #FFFFFF;
+            outline: 3px solid var(--cor-branca);
             outline-offset: 2px;
         }
 
+        .day-summary-link {
+            width: auto;
+            min-width: 175px;
+            height: 48px;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex: none;
+            border-radius: var(--raio-md);
+            font-size: 16px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
         .day-event-edit {
-            background-color: #167FA6;
+            background-color: var(--cor-primaria);
         }
 
         .day-event-edit:hover,
         .day-event-edit:focus-visible {
-            background-color: #0F6687;
+            background-color: var(--cor-primaria-hover);
         }
 
         .day-event-delete {
-            background-color: #B42318;
+            background-color: var(--cor-perigo);
         }
 
         .day-event-delete:hover,
         .day-event-delete:focus-visible {
-            background-color: #8F1C13;
+            background-color: var(--cor-perigo-hover);
         }
 
         .day-event-edit:focus-visible,
         .day-event-delete:focus-visible {
-            outline: 3px solid #FFFFFF;
+            outline: 3px solid var(--cor-branca);
             outline-offset: 2px;
         }
 
@@ -422,22 +419,22 @@
         .day-event-edit-form input,
         .day-event-edit-form select {
             width: 100%;
-            height: 36px;
+            min-height: 44px;
             padding: 0 9px;
-            border: 1px solid #777777;
+            border: 1px solid var(--cor-neutra);
             border-radius: 5px;
             box-sizing: border-box;
-            background-color: #FFFFFF;
-            color: #222222;
+            background-color: var(--cor-branca);
+            color: var(--cor-texto);
             font: inherit;
             box-shadow: none;
         }
 
         .day-event-edit-form input:focus-visible,
         .day-event-edit-form select:focus-visible {
-            border-color: #167FA6;
-            outline: none;
-            box-shadow: none;
+            border-color: var(--cor-primaria);
+            outline: 3px solid var(--cor-primaria-hover);
+            outline-offset: 1px;
         }
 
         .day-edit-fields {
@@ -448,7 +445,7 @@
 
         .day-edit-error {
             margin: 0;
-            color: #8A1710;
+            color: var(--cor-perigo-hover);
             font-size: 14px;
             font-weight: 700;
         }
@@ -461,23 +458,23 @@
 
         .day-edit-actions button {
             min-width: 86px;
-            height: 36px;
+            min-height: 44px;
             padding: 0 12px;
             border: 0;
             border-radius: 5px;
-            color: #FFFFFF;
+            color: var(--cor-branca);
             font: inherit;
             font-weight: 700;
             cursor: pointer;
         }
 
         .day-edit-cancel {
-            background-color: #626262;
+            background-color: var(--cor-neutra-hover);
         }
 
         .day-edit-save {
-            background-color: #167FA6;
-            color: #FFFFFF;
+            background-color: var(--cor-primaria);
+            color: var(--cor-branca);
         }
 
         .day-edit-actions button:hover,
@@ -486,7 +483,7 @@
         }
 
         .day-edit-actions button:focus-visible {
-            outline: 3px solid #FFFFFF;
+            outline: 3px solid var(--cor-branca);
             outline-offset: 2px;
         }
 
@@ -497,7 +494,7 @@
 
         .day-delete-error {
             margin: -8px 0 12px;
-            color: #7A1711;
+            color: var(--cor-perigo-hover);
             font-size: 16px;
         }
 
@@ -521,9 +518,9 @@
         .day-schedule-link {
             min-height: 42px;
             padding: 0 18px;
-            border-radius: 6px;
-            background-color: #C2E5F2;
-            color: #303030;
+            border-radius: var(--raio-sm);
+            background-color: var(--cor-primaria-clara);
+            color: var(--cor-texto);
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -533,7 +530,7 @@
         }
 
         .day-schedule-link:focus-visible {
-            outline: 3px solid #FFFFFF;
+            outline: 3px solid var(--cor-branca);
             outline-offset: 2px;
         }
 
@@ -549,30 +546,18 @@
     height: 100dvh;
     min-height: 0;
     display: grid;
-    grid-template-rows: 10dvh 10dvh minmax(0, 1fr);
-    overflow: hidden;
+    grid-template-rows: var(--altura-cabecalho) var(--altura-navegacao) minmax(0, 1fr);
+    background-color: var(--cor-fundo);
 }
 
-.Agenda header,
-.Agenda nav,
 .Agenda main {
     min-height: 0;
-}
-
-.Agenda header,
-.Agenda nav {
-    height: auto;
-}
-
-.Agenda header img {
-    width: clamp(130px, 18vw, 200px);
-    max-height: 8dvh;
 }
 
 .Agenda main {
     height: auto;
     padding: clamp(8px, 1.2dvh, 14px);
-    overflow: hidden;
+    overflow: auto;
 }
 
 .Agenda .agenda {
@@ -607,8 +592,6 @@
 }
 
 .Agenda .seletor-mes button {
-    width: clamp(30px, 4.5dvh, 38px);
-    height: clamp(30px, 4.5dvh, 38px);
     font-size: clamp(24px, 3.8dvh, 30px);
 }
 
@@ -651,17 +634,6 @@
 }
 
 @media (max-width: 600px) {
-    .Agenda nav {
-        padding: 0 12px;
-        gap: 8px;
-    }
-
-    .Agenda .botao-agenda,
-    .Agenda .botao-resumo,
-    .Agenda .botao-agendamentos {
-        font-size: clamp(12px, 3.6vw, 16px);
-    }
-
     .Agenda main {
         padding: 6px;
     }
@@ -672,5 +644,61 @@
 
     .Agenda .day-event-preview {
         display: none;
+    }
+
+    .Agenda .day-expanded {
+        width: min(500px, calc(100vw - 20px));
+        height: min(520px, calc(100dvh - 20px));
+        padding: 16px;
+    }
+
+    .Agenda .day-close {
+        top: 8px;
+        right: 8px;
+        width: 44px;
+        height: 44px;
+    }
+
+    .Agenda .day-expanded-title {
+        margin: 0 48px 14px 0;
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .Agenda .day-expanded h2 {
+        font-size: clamp(25px, 8vw, 32px);
+    }
+
+    .Agenda .day-summary-link {
+        width: 100%;
+        min-width: 0;
+        height: 44px;
+    }
+
+    .Agenda .day-event-list li {
+        padding: 9px;
+        gap: 8px;
+        font-size: 16px;
+    }
+
+    .Agenda .day-event-edit,
+    .Agenda .day-event-delete {
+        width: 44px;
+        min-width: 44px;
+        height: 44px;
+    }
+
+    .Agenda .day-edit-fields {
+        grid-template-columns: repeat(2, minmax(90px, 1fr));
+    }
+}
+
+@media (max-width: 380px) {
+    .Agenda .day-expanded-title {
+        margin-right: 42px;
+    }
+
+    .Agenda .day-edit-fields {
+        grid-template-columns: 1fr;
     }
 }

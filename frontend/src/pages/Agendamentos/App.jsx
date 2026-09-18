@@ -1,8 +1,8 @@
 import './App.scss';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import AppHeader from '../../components/AppHeader';
 import { criarAgendamento, listarAgendamentos } from '../../services/api';
 import {
-  BarraNavegacao,
   Calendario,
   FormularioAgendamento,
   Notificacao,
@@ -454,7 +454,7 @@ export default function Agendamentos() {
         </div>
       )}
 
-      <BarraNavegacao />
+      <AppHeader />
 
       <main>
         <div className="calendario">
