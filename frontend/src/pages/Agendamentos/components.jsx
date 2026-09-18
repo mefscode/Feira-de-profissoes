@@ -38,7 +38,10 @@ export function BarraNavegacao() {
   return (
 <div className="BarraNavegacao">
       <header>
-        <img src="/assets/images/Agenda-FREI.png" alt="Logo Agenda do FREI" />
+        <img
+          src={`${import.meta.env.BASE_URL}assets/images/Agenda-FREI.png`}
+          alt="Logo Agenda do FREI"
+        />
       </header>
       <nav>
         <Link className="botao-agenda" to="/agenda">

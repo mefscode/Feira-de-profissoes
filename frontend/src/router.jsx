@@ -6,7 +6,7 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 
 export default function Nav(){
     return(
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
             <Route path='/' element={<Agendamentos/>}/>
             <Route path='/agenda' element={<Agenda/>}/>

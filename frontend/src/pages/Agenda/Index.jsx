@@ -301,7 +301,10 @@ export default function Agenda() {
   return (
     <div className="Agenda">
       <header>
-        <img src="/assets/images/Agenda-FREI.png" alt="Logo Agenda do FREI" />
+        <img
+          src={`${import.meta.env.BASE_URL}assets/images/Agenda-FREI.png`}
+          alt="Logo Agenda do FREI"
+        />
       </header>
       <nav>
         <Link className="botao-agenda" to="/agenda">
